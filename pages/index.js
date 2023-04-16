@@ -1,40 +1,14 @@
-import { useEffect, useState } from "react";
-import { Stomp } from "@stomp/stompjs";
+import Link from "next/link";
 
-const RabbitMQConsumer = () => {
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    const client = Stomp.client("ws://192.168.1.14:15674/ws");
-
-    const onConnect = () => {
-      client.subscribe(
-        "/queue/car_data",
-        (message) => {
-          setMessages([...messages, message.body]);
-          message.ack();
-        },
-        { ack: "client" }
-      );
-    };
-
-    client.connect("guest", "guest", onConnect);
-
-    return () => {
-      client.disconnect();
-    };
-  }, []);
-
+export default function Home() {
   return (
-    <div>
-      <h1>Messages from RabbitMQ</h1>
-      <ul>
-        {messages.map((msg, i) => (
-          <li key={i}>{msg}</li>
-        ))}
-      </ul>
+    <div className="container">
+      <h1>Car Monitoring</h1>
+      <p>
+        Monitor your car using MQTT system which helps you to get the live
+        updates from the car
+      </p>
+      <button><Link href="/carMonitoring">get started</Link></button>
     </div>
   );
-};
-
-export default RabbitMQConsumer;
+}
