@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { Stomp } from "@stomp/stompjs";
 
 const RabbitMQConsumer = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(
+    {
+      username:"anish",
+      status:true,
+      carspeed:100,
+    }
+  );
 
   useEffect(() => {
     const client = Stomp.client("ws://192.168.1.5:15674/ws");
@@ -30,9 +36,11 @@ const RabbitMQConsumer = () => {
     <div>
       <h1>Messages from RabbitMQ</h1>
       <ul>
-        {messages.map((msg, i) => (
-          <li key={i}>{msg}</li>
-        ))}
+        {
+          Object.keys(messages).map((msg, i) => (
+            <li key={i}>{msg}:{messages[msg]}</li>
+          ))
+        }
       </ul>
     </div>
   );

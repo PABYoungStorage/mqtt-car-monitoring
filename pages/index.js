@@ -8,7 +8,7 @@ export default function Home() {
         Monitor your car using MQTT system which helps you to get the live
         updates from the car
       </p>
-      <button><Link href="/carMonitoring">get started</Link></button>
+      <Link href="/carMonitoring"><button>get started</button></Link>
     </div>
   );
 }
